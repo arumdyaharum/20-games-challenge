@@ -1,0 +1,136 @@
+[gd_scene format=3 uid="uid://csuqae0f7ps"]
+
+[ext_resource type="Script" uid="uid://dr8fl6tusenvs" path="res://scripts/main.gd" id="1_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://coer6uxjhhrg5" path="res://scenes/paddle.tscn" id="2_0wfyh"]
+[ext_resource type="PackedScene" uid="uid://dtg4ykdsk7x3h" path="res://scenes/circle.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://bxboqr04o0tme" path="res://scenes/point.tscn" id="3_sugp2"]
+[ext_resource type="Texture2D" uid="uid://b2d85pw5ax13t" path="res://assets/dashed-line.png" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://by4oilpja1v82" path="res://scenes/menu.tscn" id="6_tefeu"]
+
+[sub_resource type="Gradient" id="Gradient_tefeu"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0.901428, 0.901428, 0.9014279, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_ufs6u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f5d5n"]
+font = SubResource("SystemFont_ufs6u")
+font_size = 60
+font_color = Color(0.39308554, 0.3930855, 0.39308548, 1)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_r0uly"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ufs6u"]
+size = Vector2(677.8248, 14.0385065)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_f5d5n"]
+
+[node name="Main" type="Node2D" unique_id=1966097644]
+script = ExtResource("1_o6xl0")
+
+[node name="BG" type="ColorRect" parent="." unique_id=533221729]
+offset_right = 1160.0
+offset_bottom = 650.0
+
+[node name="Line2D" type="Line2D" parent="BG" unique_id=1083875667]
+texture_filter = 1
+texture_repeat = 2
+position = Vector2(576, -1)
+points = PackedVector2Array(0, 0, 0, 650)
+default_color = Color(0.25384274, 0.25384274, 0.25384274, 1)
+gradient = SubResource("Gradient_tefeu")
+texture = ExtResource("5_tbgi4")
+texture_mode = 1
+
+[node name="ScoreBoard" type="Label" parent="." unique_id=107077567]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 494.0
+offset_top = 40.0
+offset_right = 658.0
+offset_bottom = 123.0
+grow_horizontal = 2
+text = "0      0"
+label_settings = SubResource("LabelSettings_f5d5n")
+horizontal_alignment = 1
+
+[node name="BackToMenuButton" type="Button" parent="ScoreBoard" unique_id=1703278848]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -125.0
+offset_top = 496.0
+offset_right = 125.0
+offset_bottom = 554.0
+grow_horizontal = 2
+pivot_offset = Vector2(125, 0)
+theme_override_colors/font_color = Color(0.58707833, 0.5870784, 0.58707815, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.31431594, 0.31431618, 0.31431603, 1)
+theme_override_font_sizes/font_size = 36
+text = "Back to menu"
+flat = true
+
+[node name="WallTop" type="StaticBody2D" parent="." unique_id=1447229253]
+position = Vector2(0, -8)
+scale = Vector2(0.9905985, 0.87977916)
+physics_material_override = SubResource("PhysicsMaterial_r0uly")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop" unique_id=1988436826]
+position = Vector2(586.51416, 2.2733154)
+scale = Vector2(1.746764, 0.971598)
+shape = SubResource("RectangleShape2D_ufs6u")
+
+[node name="WallBottom" type="StaticBody2D" parent="." unique_id=167696186]
+position = Vector2(0, 649)
+scale = Vector2(0.9905985, 0.87977916)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom" unique_id=563501164]
+position = Vector2(586.51416, 5.6832886)
+scale = Vector2(1.746764, 0.971598)
+shape = SubResource("RectangleShape2D_ufs6u")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=768968189]
+position = Vector2(576, 324)
+
+[node name="PaddleLeft" parent="." unique_id=949115277 instance=ExtResource("2_0wfyh")]
+modulate = Color(7.893444e-06, 0.73447764, 0.9414122, 1)
+position = Vector2(90, 312)
+rotation = 1.5707964
+
+[node name="PaddleRight" parent="." unique_id=514607099 instance=ExtResource("2_0wfyh")]
+modulate = Color(0.3762345, 0.7798428, 3.85046e-07, 1)
+position = Vector2(1047, 329)
+rotation = -1.5707964
+vertical_flip = true
+key_up = 1
+key_down = 1
+
+[node name="Circle" parent="." unique_id=137276110 instance=ExtResource("2_sugp2")]
+position = Vector2(576, 324)
+collision_layer = 2
+
+[node name="PointLeft" parent="." unique_id=1284211778 instance=ExtResource("3_sugp2")]
+position = Vector2(0, 338)
+rotation = -1.5707963
+scale = Vector2(2, -2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PointLeft" unique_id=1592895979]
+shape = SubResource("WorldBoundaryShape2D_f5d5n")
+
+[node name="PointRight" parent="." unique_id=226377625 instance=ExtResource("3_sugp2")]
+position = Vector2(1152, 338)
+rotation = 1.5707963
+scale = Vector2(2, -2)
+on_right = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PointRight" unique_id=1229190908]
+shape = SubResource("WorldBoundaryShape2D_f5d5n")
+
+[node name="Menu" parent="." unique_id=872845598 instance=ExtResource("6_tefeu")]
+position = Vector2(576, 324)

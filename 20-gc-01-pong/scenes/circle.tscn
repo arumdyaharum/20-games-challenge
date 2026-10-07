@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dtg4ykdsk7x3h"]
+
+[ext_resource type="Script" uid="uid://dpjf54n0477q6" path="res://scripts/circle.gd" id="1_wcjn7"]
+[ext_resource type="AudioStream" uid="uid://dotw813m0i7h3" path="res://assets/ball_impact.wav" id="2_3e3c1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_3xiby"]
+friction = 0.0
+rough = true
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wcjn7"]
+radius = 30.0
+
+[sub_resource type="Curve" id="Curve_wcjn7"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.9955752, 0), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_opnif"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.7455808, 0.7455801, 0.7455802, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="Circle" type="RigidBody2D" unique_id=1003500970]
+physics_material_override = SubResource("PhysicsMaterial_3xiby")
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_wcjn7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=303738244]
+shape = SubResource("CircleShape2D_wcjn7")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="." unique_id=1687192512]
+position = Vector2(-44, -10)
+emitting = false
+amount = 10
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, -1)
+spread = 90.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
+scale_amount_min = 5.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_wcjn7")
+
+[node name="BallImpact" type="AudioStreamPlayer" parent="." unique_id=1500749243]
+stream = ExtResource("2_3e3c1")
+bus = &"Ball Impact"
+
+[node name="Panel" type="Panel" parent="." unique_id=1604622822]
+modulate = Color(1, 0.8039216, 0, 1)
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+pivot_offset = Vector2(30, 30)
+theme_override_styles/panel = SubResource("StyleBoxFlat_opnif")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

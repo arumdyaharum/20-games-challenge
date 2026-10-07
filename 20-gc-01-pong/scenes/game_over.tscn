@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dm1nr66ca620o"]
+
+[ext_resource type="Script" uid="uid://bssfwxtarnnkk" path="res://scripts/game_over.gd" id="1_wqhvx"]
+[ext_resource type="AudioStream" uid="uid://b4ams1vqhwqcl" path="res://assets/game_over.wav" id="1_xeevv"]
+
+[node name="GameOver" type="Control" unique_id=106621332]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wqhvx")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1380751215]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1537965191]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1677427978]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1483448053]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.19614312, 0.19614306, 0.19614309, 1)
+theme_override_font_sizes/font_size = 60
+text = "Game Over
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackToMenuButton" type="Button" parent="CenterContainer/VBoxContainer" unique_id=676059822]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Back to Menu"
+
+[node name="GameOverMusic" type="AudioStreamPlayer" parent="." unique_id=747151787]
+stream = ExtResource("1_xeevv")
+bus = &"Game Over"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/BackToMenuButton" to="." method="_on_back_to_menu_button_pressed"]
